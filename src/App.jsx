@@ -15,7 +15,9 @@ function App(){
   useEffect(()=>{
     const fetchData=async()=>{
       try{
-        const data=await getNotifications();
+        const data=await getNotifications(page,
+  limit,
+  filter === "All" ? "" : filter);
         await Log(
       "frontend",
       "info",
@@ -34,12 +36,7 @@ function App(){
             new Date(b.Timestamp)-new Date(a.Timestamp)
           );
         });
-       const startIndex = (page - 1) * limit;
-const endIndex = startIndex + limit;
-
-setNotifications(
-  sortedNotifications.slice(startIndex, endIndex)
-);
+       setNotifications(sortedNotifications);
       }catch(error){
         console.error(error);
       await Log(
